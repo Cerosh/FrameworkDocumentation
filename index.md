@@ -51,7 +51,8 @@ Listeners are interfaces used in Selenium WebDriver scripts. Listners allow cust
 ## Inheritance
 ## Interface
 ## HtmlElements
-To use the HtmlElements library, you must create a simple maven project. After that, add the latest version of the library:
+This framework is designed by a third party called yandex to provide an easy-to-use way of interacting with web-page elements in tests. This framework can be considered to be an extension of WebDriver Page Object. With the help of the Html Elements framework we can group web-page elements into blocks, encapsulate logic of interaction within them and then easily use created blocks in page objects. 
+To use the HtmlElements library, just needed to add the dependency to the `POM.xml`.
 ```xml
 <dependency>
     <groupId>ru.yandex.qatools.htmlelements</groupId>
