@@ -1,10 +1,4 @@
-## Welcome to GitHub Pages
-
-You can use the [editor on GitHub](https://github.com/Cerosh/FrameworkDocumentation/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
+### Framework Documentation
 ## Annotations
 There are three built annotations in Java and they are there `@Deprecated`, `@Override`, `@SuppressWarnngs`. Annotations can be applied to class, interface, method and field. Custom annotation can be created using the `@interface` followd by the class name. Custom annotation can have elements but should not provide implementations but can provide default values. While using the annotation in a class those elements which has default value can be excluded or updated for new values. Array elements are also allowed in annotations.Custom annotation can use four type of annotations they are
 `@Documented`, annotation indicates that element using this annotation should be documentd by Java Doc.
@@ -80,7 +74,8 @@ public class SearchArrow extends HtmlElement {
     }
 }
 ```
-This class describes the structure of the search string and the logic of interaction with it. Next, you need to create a MainPage class that contains the search string:
+The `searchFor()` method uses 2 elements, requestInput and searchButton. They dont use the WebElement type but new ones (TextInput and Button). The `@FindBy` annotations is used not only by the elements of the `SearchArrow` class but also by the class itself.The framework  define a class for each type of HTML element (TextInput, Button). The `@FindBy` annotation can be used not only for elements but also for the classes. The `@FindBy` annotation can be used for objects with the TextInput and Button classes.  There is a class for each type of html element which are the TestInput and Button class. All these classes extend another class called `TypifiedElement`. Because of the inheritance, TextInput can use all protected/public methods of TypifiedElement. In addition, it defines methods for getting text and clearing value. Since there is no `driver` or `By locator` passed as parameter It implements the `WebDriver` interface .
+The `PageFactory.initElements()` can initialize TextInput and Button elements.This class describes the structure of the search string and the logic of interaction with it. Next, you need to create a MainPage class that contains the search string:
 ```Java
 public class MainPage {
 
@@ -132,6 +127,7 @@ public class SearchPage {
     }
 }
 ```
+The searchFor() method uses a SearchArrow class object for executing search. it does not declare any web element fields and annotations (like a standard page factory implementation). it declares a searchArrow field for the SearchArrow class which is then initialized in the class’s constructor; the standard page factory implementation does this only for web elements.
 In order to check this, we create a simple test to check the search results, in which we create a copy of our page:
 ```Java
 public class SearchingByRequestTest {
@@ -163,6 +159,7 @@ public class SearchingByRequestTest {
     }
 }
 ```
+The test uses an object of the SearchPage page class and interacts with it through its methods.
 In this example, you see that after initializing the MainPage itself, the internal elements were initialized.
 
 ```markdown
