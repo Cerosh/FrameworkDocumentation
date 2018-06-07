@@ -50,8 +50,119 @@ Listeners are interfaces used in Selenium WebDriver scripts. Listners allow cust
 ## Screenshot
 ## Inheritance
 ## Interface
+## HtmlElements
+To use the HtmlElements library, you must create a simple maven project. After that, add the latest version of the library:
+```xml
+<dependency>
+    <groupId>ru.yandex.qatools.htmlelements</groupId>
+    <artifactId>htmlelements-java</artifactId>
+    <version>1.19</version>
+</dependency>
+```
+Run the mvn clean compile command to test that your project is being compiled.
+### Example of using HtmlElements
+As an example, take the main page of Yandex (http://www.yandex.ru). Let's describe for the beginning a simple element, for example a search string:
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+```Java
+public class SearchArrow extends HtmlElement {
+
+    @FindBy(xpath = ".//input[@class='search2__input']")
+    public TextInput requestInput;
+
+    @FindBy(xpath = ".//input[@class='search2__button']")
+    public Button searchButton;
+
+    public void searchFor(String request) {
+        requestInput.clear();
+        requestInput.sendKeys(request);
+        searchButton.click();
+    }
+}
+```
+This class describes the structure of the search string and the logic of interaction with it. Next, you need to create a MainPage class that contains the search string:
+```Java
+public class MainPage {
+
+    private WebDriver driver;
+
+    @FindBy(className = "home-arrow__search")
+    private SearchArrow searchArrow;
+
+    public MainPage(final WebDriver driver) {
+        PageFactory.initElements(new HtmlElementDecorator(driver), this);
+        this.driver = driver;
+    }
+
+    public SearchPage searchFor(String request) {
+        this.searchArrow.searchFor(request);
+        return new SearchPage(driver);
+    }
+
+}
+```
+As you can see, the initialization of internal staple elements MainPage is invoked in the constructor is used by the custom decorator of the class fields: `HtmlElementDecorator()`. Since the field 'searchArrow' is the successor of HtmlElements, its initialization occurs recursively. Thus, the internal elements of the search string are also initialized:
+
+protected WebElement requestInput;
+protected WebElement searchButton;
+As you can see from the description, the searchFor method returns an instance of the search page. We describe it:
+```Java
+public class SearchPage {
+
+    private WebDriver driver;
+
+    @FindBy(className = "b-serp-list")
+    private SearchResults searchResults;
+
+    @FindBy(className = "b-morda-search-form")
+    private SearchArrow searchArrow;
+
+    public SearchPage(WebDriver driver) {
+        PageFactory.initElements(new HtmlElementDecorator(driver), this);
+        this.driver = driver;
+    }
+
+    public SearchPage searchFor(String request) {
+        this.searchArrow.searchFor(request);
+        return this;
+    }
+
+    public SearchResults getSearchResults() {
+        return this.searchResults;
+    }
+}
+```
+In order to check this, we create a simple test to check the search results, in which we create a copy of our page:
+```Java
+public class SearchingByRequestTest {
+
+    private final int DEFAULT_RESULTS_COUNT;
+
+    public WebDriver driver = new FirefoxDriver();
+
+    public SearchingByRequestTest() {
+        DEFAULT_RESULTS_COUNT = 10;
+    }
+
+    @Before
+    public void loadStartPage() {
+        driver.get("http://www.yandex.ru");
+    }
+
+    @Test
+    public void afterSearchingUserShouldSeSearchResults() {
+        MainPage mainPage = new MainPage(driver);
+        SearchPage page = mainPage.searchFor("Yandex");
+        assertThat(page.getSearchResults(), exists());
+        assertThat(page.getSearchResults().getSearchItems(), hasSize(DEFAULT_RESULTS_COUNT));
+    }
+
+    @After
+    public void killWebDriver() {
+        driver.quit();
+    }
+}
+```
+In this example, you see that after initializing the MainPage itself, the internal elements were initialized.
 
 ```markdown
 Syntax highlighted code block
