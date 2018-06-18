@@ -162,9 +162,7 @@ public class SearchingByRequestTest {
 The test uses an object of the SearchPage page class and interacts with it through its methods.
 In this example, you see that after initializing the MainPage itself, the internal elements were initialized.
 
-```markdown
-Syntax highlighted code block
-## HashMap
+## HtmlElements
 HashMap basically designates unique keys to corresponding values and those values can be stored in a map by forming a key-value pair. The value can be retrieved using the key by passing it to the correct method.
 ```Java
 public void HashMap_Example(){
