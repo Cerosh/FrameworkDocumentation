@@ -164,7 +164,23 @@ In this example, you see that after initializing the MainPage itself, the intern
 
 ```markdown
 Syntax highlighted code block
-
+## HashMap
+HashMap basically designates unique keys to corresponding values and those values can be stored in a map by forming a key-value pair. The value can be retrieved using the key by passing it to the correct method.
+```Java
+public void HashMap_Example(){
+	    Map<String, String> objMap = new HashMap<String, String>();
+	    objMap.put("Name", "Suzuki");
+	    objMap.put("Power", "220");
+	    objMap.put("Type", "2-wheeler");
+	    objMap.put("Price", "85000");
+	    System.out.println("Elements of the Map:"+ objMap);
+	    System.out.println("Is there a Power Key: " + objMap.containsKey("Name"));
+	    System.out.println("Is there a 2-wheeler Value: " + objMap.containsValue("2-wheeler"));
+	    System.out.println("Name key : " + objMap.get("Name"));
+	    System.out.println("All the available keys: " + objMap.keySet());
+	    System.out.println("All the available values : " + objMap.values());
+	  }
+```
 
 # Header 1
 ## Header 2
