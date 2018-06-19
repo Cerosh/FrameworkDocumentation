@@ -163,7 +163,7 @@ The test uses an object of the SearchPage page class and interacts with it throu
 In this example, you see that after initializing the MainPage itself, the internal elements were initialized.
 
 ## HtmlElements
-HashMap basically designates unique keys to corresponding values and those values can be stored in a map by forming a key-value pair. The value can be retrieved using the key by passing it to the correct method.
+HashMap basically designates unique keys to corresponding values and those values can be stored in a map by forming a key-value pair. The value can be retrieved using the key by passing it to the correct method. Duplicate keys are not allowed but null keys and value are allowed.
 ```Java
 public void HashMap_Example(){
 	    Map<String, String> objMap = new HashMap<String, String>();
