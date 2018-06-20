@@ -192,7 +192,7 @@ public void HashMap_Example(){
 
 **Bold** and _Italic_ and `Code` text
 
-[Link](url) and ![Image](src)
+[selenium-tips-and-tricks](https://seleniumjava.com/2018/06/17/selenium-tips-and-tricks/) and ![Image](src)
 ```
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
